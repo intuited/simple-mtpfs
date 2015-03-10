@@ -23,8 +23,8 @@ dnl Enable fdatasync, but not on OSX
 test `uname -s` == "Darwin" || AC_CHECK_FUNCS([fdatasync])
 
 PKG_CHECK_MODULES([FUSE], [fuse >= 2.7.3])
-AC_SUBST([FUSE_CFLAGS])
-AC_SUBST([FUSE_LIBS])
+AC_SUBST([FUSE_CFLAGS],["-D_FILE_OFFSET_BITS=64 -D_DARWIN_USE_64_BIT_INODE -I/usr/local/opt/osxfuse/include/osxfuse"])
+AC_SUBST([FUSE_LIBS],["-L/usr/local/opt/osxfuse//lib -losxfuse -pthread -liconv"])
 
 PKG_CHECK_MODULES(
     [LIBUSB1],
